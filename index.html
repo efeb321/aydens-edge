@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<title>Ayden's Edge</title>
+<!-- PWA / installable app -->
+<meta name="theme-color" content="#080b11">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ayden's Edge">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23080b11'/%3E%3Ccircle cx='90' cy='74' r='34' fill='none' stroke='%23ff2d6b' stroke-width='9'/%3E%3Ccircle cx='90' cy='74' r='6' fill='%23ff2d6b'/%3E%3Ctext x='90' y='150' font-family='Arial Black,sans-serif' font-size='40' font-weight='900' fill='%23fff' text-anchor='middle'%3EAE%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Ayden%27s%20Edge%22%2C%22short_name%22%3A%22Ayden%27s%20Edge%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23080b11%22%2C%22theme_color%22%3A%22%23080b11%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520180%2520180%2527%253E%253Crect%2520width%253D%2527180%2527%2520height%253D%2527180%2527%2520rx%253D%252740%2527%2520fill%253D%2527%2523080b11%2527%252F%253E%253Ccircle%2520cx%253D%252790%2527%2520cy%253D%252774%2527%2520r%253D%252734%2527%2520fill%253D%2527none%2527%2520stroke%253D%2527%2523ff2d6b%2527%2520stroke-width%253D%25279%2527%252F%253E%253Ctext%2520x%253D%252790%2527%2520y%253D%2527150%2527%2520font-family%253D%2527Arial%2527%2520font-size%253D%252740%2527%2520font-weight%253D%2527900%2527%2520fill%253D%2527%2523fff%2527%2520text-anchor%253D%2527middle%2527%253EAE%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22180x180%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080b11; --bg2:#10161f; --bg3:#19212d; --line:#222d3c;
+    --ink:#e9eff6; --mut:#8593a6; --mut2:#5d6a7d;
+    --crimson:#ff2d6b; --gold:#f5b53d; --teal:#2dd4bf; --rose:#ff2d6b; --purple:#a855f7; --blue:#3b82f6; --green:#34d399;
+    --attack:#34d399; --standard:#3b82f6; --survive:#ff5470;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Saira',sans-serif;line-height:1.45;
+    background-image:radial-gradient(900px 500px at 80% -10%, rgba(255,45,107,.10), transparent 60%),radial-gradient(700px 500px at -10% 10%, rgba(59,130,246,.07), transparent 55%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 16px 80px}
+  h1,h2,h3,.disp{font-family:'Saira Condensed',sans-serif;letter-spacing:.01em}
+  .num{font-family:'Saira Condensed',sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
+
+  /* Header */
+  header{padding:26px 0 14px;border-bottom:1px solid var(--line);position:relative}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Saira Condensed';font-weight:800;
+    font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+  .brand b{color:var(--crimson)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--crimson);box-shadow:0 0 12px var(--crimson)}
+  .course-name{font-size:34px;font-weight:800;line-height:1.02;margin:10px 0 4px;text-transform:uppercase}
+  .course-sub{color:var(--mut);font-size:14px;display:flex;flex-wrap:wrap;gap:6px 14px}
+  .course-sub b{color:var(--ink);font-weight:600}
+  .event-line{margin:7px 0 2px;font-size:13px;color:var(--crimson);letter-spacing:.02em;font-family:'Saira Condensed';font-weight:600;text-transform:uppercase}
+  .event-line b{color:#fff}
+  .wx-rounds{display:flex;gap:6px;margin-bottom:12px}
+  .wx-rounds button{flex:1;background:var(--bg3);border:1px solid var(--line);color:var(--mut);border-radius:9px;
+    padding:8px 6px;font-family:'Saira Condensed';font-weight:700;letter-spacing:.04em;font-size:12.5px;cursor:pointer;transition:.15s}
+  .wx-rounds button.active{background:var(--crimson);color:#fff;border-color:var(--crimson)}
+
+  /* Player strip */
+  .player{margin:16px 0;background:linear-gradient(180deg,var(--bg2),var(--bg2));border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .player-top{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .avatar{width:42px;height:42px;border-radius:50%;background:var(--bg3);display:grid;place-items:center;font-weight:800;font-family:'Saira Condensed';color:var(--crimson);border:1px solid var(--line)}
+  .player-top .nm{font-family:'Saira Condensed';font-weight:800;font-size:20px;text-transform:uppercase;line-height:1}
+  .player-top .tag{color:var(--mut);font-size:12.5px;letter-spacing:.05em}
+  .pq{margin-left:auto;text-align:right}
+  .pq .num{font-size:30px;line-height:.9}
+  .pq .lbl{color:var(--mut);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+  .cat{background:var(--bg2);padding:11px 8px;text-align:center}
+  .cat .c-lbl{font-size:10px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase}
+  .cat .c-val{font-family:'Saira Condensed';font-weight:800;font-size:24px;line-height:1.1}
+  .cat .c-note{font-size:10.5px;color:var(--mut);line-height:1.2}
+  .ott{color:var(--gold)} .app{color:var(--teal)} .arg{color:var(--rose)} .putt{color:var(--purple)}
+
+  .rules{padding:13px 16px;display:grid;gap:7px;background:var(--bg2)}
+  .rule{display:flex;gap:9px;font-size:13px;color:#cdd6e2}
+  .rule .rn{font-family:'Saira Condensed';font-weight:800;color:var(--crimson);min-width:16px}
+  .rule b{color:#fff;font-weight:600}
+
+  /* Weather console */
+  .wx{margin:16px 0;border:1px solid var(--line);border-radius:14px;background:var(--bg2);overflow:hidden}
+  .wx-head{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid var(--line);
+    font-family:'Saira Condensed';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--mut)}
+  .wx-head .live{margin-left:auto;font-size:10px;letter-spacing:.1em;padding:3px 8px;border-radius:20px;background:var(--bg3);color:var(--mut)}
+  .wx-body{padding:14px 16px}
+  .wx-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:4px}
+  .field label{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+  select,input[type=number],input[type=date]{background:var(--bg);border:1px solid var(--line);color:var(--ink);
+    border-radius:9px;padding:9px 10px;font-family:'Saira';font-size:14px;outline:none}
+  select:focus,input:focus{border-color:var(--crimson)}
+  input[type=number]{width:84px}
+  .btn{background:var(--crimson);color:#fff;border:none;border-radius:9px;padding:10px 16px;font-family:'Saira Condensed';
+    font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13.5px;cursor:pointer;transition:.15s}
+  .btn:hover{filter:brightness(1.08)} .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:var(--bg3);color:var(--ink);border:1px solid var(--line)}
+  .wx-readout{margin-top:13px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--mut)}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--line);border-radius:20px;padding:5px 11px;font-size:12.5px}
+  .chip b{color:var(--ink);font-weight:600}
+  .compass{width:18px;height:18px;display:inline-block}
+  .compass svg{display:block}
+  .wx-note{margin-top:10px;font-size:11.5px;color:var(--mut2);line-height:1.4}
+
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 0;background:rgba(8,11,17,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-bottom:14px}
+  .nav button{flex:1;background:var(--bg3);border:1px solid var(--line);color:var(--mut);border-radius:9px;
+    padding:8px;font-family:'Saira Condensed';font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer}
+  .nav button.active{background:var(--crimson);color:#fff;border-color:var(--crimson)}
+
+  .sec-title{font-family:'Saira Condensed';font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    font-size:13px;color:var(--mut);margin:6px 2px 10px;display:flex;align-items:center;gap:8px}
+  .sec-title::after{content:'';flex:1;height:1px;background:var(--line)}
+
+  /* Hole card */
+  .hole{border:1px solid var(--line);border-radius:14px;background:var(--bg2);margin-bottom:12px;overflow:hidden;
+    opacity:0;transform:translateY(8px);animation:rise .4s forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .h-head{display:flex;align-items:center;gap:13px;padding:14px 16px;cursor:pointer;position:relative}
+  .h-no{font-family:'Saira Condensed';font-weight:800;font-size:30px;line-height:.8;width:38px;text-align:center}
+  .h-meta{display:flex;flex-direction:column;gap:1px}
+  .h-meta .pr{font-family:'Saira Condensed';font-weight:700;font-size:15px;letter-spacing:.04em}
+  .h-meta .pr small{color:var(--mut);font-weight:500}
+  .h-prio{margin-left:auto;font-family:'Saira Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;padding:5px 11px;border-radius:20px}
+  .pAttack{background:rgba(52,211,153,.13);color:var(--attack);border:1px solid rgba(52,211,153,.3)}
+  .pStandard{background:rgba(59,130,246,.13);color:var(--standard);border:1px solid rgba(59,130,246,.3)}
+  .pSurvive{background:rgba(255,84,112,.13);color:var(--survive);border:1px solid rgba(255,84,112,.3)}
+  .h-wind{font-size:11.5px;color:var(--mut);display:flex;align-items:center;gap:5px;padding:0 16px 4px;margin-top:-4px}
+  .h-wind b{color:var(--gold)}
+  .caret{margin-left:8px;color:var(--mut);transition:.2s;font-size:12px}
+  .hole.open .caret{transform:rotate(180deg)}
+  .h-body{display:none;padding:0 16px 16px;border-top:1px solid var(--line);margin-top:4px;padding-top:13px}
+  .hole.open .h-body{display:block}
+  .play{margin-bottom:12px}
+  .play:last-child{margin-bottom:0}
+  .play .p-lbl{font-family:'Saira Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:11px;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  .pin{width:6px;height:6px;border-radius:50%;display:inline-block}
+  .play .p-txt{font-size:13.5px;color:#d4dce7}
+  .play .p-txt b{color:#fff;font-weight:600}
+  .windbox{margin-top:11px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+  .windbox .wb-h{font-family:'Saira Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:10.5px;color:var(--gold);margin-bottom:4px}
+  .windbox .wb-t{font-size:13px;color:#d4dce7}
+  .windbox .wb-t b{color:#fff}
+  .bearing-set{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-size:11.5px;color:var(--mut)}
+  .bearing-set select{padding:5px 7px;font-size:12.5px}
+
+  /* Locked */
+  /* Feed panel */
+  .feed{margin-top:22px;border:1px dashed var(--line);border-radius:14px;background:rgba(16,22,31,.5);padding:16px}
+  .feed h3{font-size:16px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+  .feed p{font-size:13px;color:var(--mut);margin-bottom:8px}
+  .feed ul{list-style:none;display:grid;gap:6px}
+  .feed li{font-size:13px;color:#cdd6e2;display:flex;gap:8px}
+  .feed li::before{content:'›';color:var(--crimson);font-weight:800}
+  footer{margin-top:26px;text-align:center;color:var(--mut2);font-size:11px;letter-spacing:.05em}
+  .hidden{display:none}
+
+  /* ---- Mobile / installed-app optimizations ---- */
+  html{-webkit-text-size-adjust:100%}
+  body{
+    padding-top:env(safe-area-inset-top);
+    padding-bottom:env(safe-area-inset-bottom);
+    overscroll-behavior-y:none;
+  }
+  *{-webkit-tap-highlight-color:rgba(255,45,107,.25)}
+  /* bigger touch targets everywhere */
+  .nav button,.wx-rounds button,select,.btn{min-height:44px}
+  .h-head{min-height:56px}
+
+  @media (max-width:560px){
+    .wrap{padding:0 12px 90px}
+    header{padding:18px 0 12px}
+    .course-name{font-size:27px}
+    .event-line{font-size:12px}
+    .course-sub{font-size:12px;gap:4px 10px}
+
+    /* player card */
+    .cats{grid-template-columns:repeat(2,1fr)}    /* 2x2 instead of cramped 4-wide */
+    .cat .c-val{font-size:26px}
+    .player-top .nm{font-size:18px}
+    .pq .num{font-size:26px}
+
+    /* weather console: let fields wrap to full rows, full-width buttons */
+    .wx-row{gap:9px}
+    .field{flex:1 1 calc(50% - 5px)}
+    input[type=number]{width:100%}
+    select,input[type=number],input[type=date]{font-size:16px;padding:11px 10px} /* 16px stops iOS zoom */
+    #wxAuto,#wxApply{flex:1 1 100%}
+
+    /* hole cards */
+    .h-no{font-size:26px;width:32px}
+    .h-meta .pr{font-size:14px}
+    .h-prio{font-size:10px;padding:4px 9px}
+    .play .p-txt{font-size:14px}     /* a touch bigger for on-course reading */
+    .windbox .wb-t{font-size:13.5px}
+
+    /* sticky section nav stays tappable */
+    .nav{gap:5px;padding:9px 0}
+    .nav button{font-size:12px;padding:9px 4px}
+  }
+  @media (max-width:380px){
+    .course-name{font-size:24px}
+    .cat .c-note{font-size:9.5px}
+  }
+  /* honor reduced-motion */
+  @media (prefers-reduced-motion:reduce){
+    .hole{animation:none;opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span> AYDEN'S <b>EDGE</b> &nbsp;·&nbsp; TOURNAMENT GAME PLAN</div>
+    <div class="course-name" id="courseName">Grand Reserve — Championship</div>
+    <div class="event-line"><b>Island Amateur Championship</b> · PRGA · June 5–7, 2026 · 54 holes</div>
+    <div class="course-sub" id="courseSub"></div>
+  </header>
+
+  <!-- PLAYER -->
+  <div class="player">
+    <div class="player-top">
+      <div class="avatar">AF</div>
+      <div>
+        <div class="nm">Ayden Febres</div>
+        <div class="tag">Scratch · 20-round profile + Grand Reserve history</div>
+      </div>
+      <div class="pq"><div class="num" style="color:var(--blue)">90</div><div class="lbl">Player Qual</div></div>
+    </div>
+    <div class="cats">
+      <div class="cat"><div class="c-lbl">OTT</div><div class="c-val ott">101</div><div class="c-note">Weapon · +0.61 SG</div></div>
+      <div class="cat"><div class="c-lbl">APP</div><div class="c-val app">93</div><div class="c-note">Solid · 26'8" prox</div></div>
+      <div class="cat"><div class="c-lbl">ARG</div><div class="c-val arg">74</div><div class="c-note">The leak · −1.73</div></div>
+      <div class="cat"><div class="c-lbl">PUTT</div><div class="c-val putt">95</div><div class="c-note">3–8ft soft · −1.80</div></div>
+    </div>
+    <div class="rules">
+      <div class="rule"><span class="rn">1</span><div><b>Tee is the weapon.</b> 298 avg, symmetric miss, elite on wide fairways. Default to driver — only club down when a hazard truly sits in the miss cone.</div></div>
+      <div class="rule"><span class="rn">2</span><div><b>Hit greens, protect the short game.</b> ARG is the leak (24% from rough). Every green hit removes a chip. Aim center, take enough club, <b>never short-side</b> — miss to the fat side.</div></div>
+      <div class="rule"><span class="rn">3</span><div><b>Know your scoring holes.</b> Birdied <b>every time: 5, 13, 18</b> — green-light, trust them. Your one leak is <b>15</b>, a par 5 you've bogeyed both rounds — play it as a strict 3-shotter. On <b>2</b>, take the birdie, never the blow-up.</div></div>
+    </div>
+  </div>
+
+  <!-- WEATHER -->
+  <div class="wx">
+    <div class="wx-head">⛅ Round Conditions <span class="live" id="wxStatus">manual</span></div>
+    <div class="wx-body">
+      <div class="wx-rounds" id="wxRounds">
+        <button data-d="2026-06-05">R1 · Fri 6/5</button>
+        <button data-d="2026-06-06">R2 · Sat 6/6</button>
+        <button data-d="2026-06-07">R3 · Sun 6/7</button>
+      </div>
+      <div class="wx-row">
+        <div class="field"><label>Tees</label>
+          <select id="teeSel"><option value="S">Sand (M)</option><option value="P" selected>PR Classic (M)</option></select>
+        </div>
+        <div class="field"><label>Round date</label><input type="date" id="wxDate"></div>
+        <div class="field"><label>Tee time</label>
+          <select id="wxTime">
+            <option>6:00</option><option>7:00</option><option selected>8:00</option><option>9:00</option>
+            <option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option>
+          </select>
+        </div>
+        <div class="field"><label>Wind from</label>
+          <select id="wxDir">
+            <option value="0">N ↓</option><option value="45">NE ↙</option><option value="90" selected>E ←</option>
+            <option value="135">SE ↖</option><option value="180">S ↑</option><option value="225">SW ↗</option>
+            <option value="270">W →</option><option value="315">NW ↘</option>
+          </select>
+        </div>
+        <div class="field"><label>Speed (mph)</label><input type="number" id="wxMph" value="16" min="0" max="50"></div>
+        <button class="btn ghost" id="wxAuto">⤓ Auto-pull</button>
+        <button class="btn" id="wxApply">Apply to plan</button>
+      </div>
+      <div class="wx-readout" id="wxReadout"></div>
+      <div class="wx-note" id="wxNote">Manual entry is the reliable core — read wind off the range or the tournament board and hit <b>Apply</b>. “Auto-pull” fetches the live forecast for this course and may be blocked inside the chat preview; if so, enter it manually.</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <button class="active" data-n="front">Front 9</button>
+    <button data-n="back">Back 9</button>
+    <button data-n="feed">Add a course</button>
+  </div>
+
+  <div id="front">
+    <div class="sec-title">Front Nine</div>
+    <div id="frontHoles"></div>
+  </div>
+  <div id="back" class="hidden">
+    <div class="sec-title">Back Nine</div>
+    <div id="backHoles"></div>
+  </div>
+
+  <div id="feed" class="hidden">
+    <div class="feed">
+      <h3>How to load any course in ~2 minutes</h3>
+      <p>Send these to Claude and a fully-tailored plan comes back. Each tournament:</p>
+      <ul>
+        <li><b>Course + tees</b> Ayden will play (e.g. “Grand Reserve, Sand tees, June 2”).</li>
+        <li><b>Full 18-hole scorecard</b> — par + yardage per hole. A Clippd scorecard screenshot or the course card works.</li>
+        <li><b>Latest Clippd data</b> if his numbers have moved (dashboard + any rounds on that course).</li>
+        <li><b>Known hazards / local notes</b> if you have them (water, forced carries, blind tee shots). Optional — I pull what I can from satellite + course data.</li>
+      </ul>
+      <p style="margin-top:10px">Claude builds the hole-by-hole engine; the live wind tool above travels with every course.</p>
+    </div>
+  </div>
+
+  <footer>AYDEN'S EDGE · interim build for the season · plan generated by Claude from verified Clippd data</footer>
+</div>
+
+<script>
+/* ============================ DATA ============================ */
+/* Course location drives the live weather pull. Bearing = compass dir the hole plays TOWARD (green from tee). */
+const COURSE = {
+  name:"Grand Reserve — Championship",
+  loc:{lat:18.3803, lng:-65.8061, label:"Río Grande, Puerto Rico"},
+  tees:{S:{label:"Sand (M)", total:"6,505"}, P:{label:"Puerto Rico Classic (M)", total:"~7,100"}},
+  par:72, design:"Tom Kite", grass:"Paspalum",
+  prevailing:"Easterly trade winds 15–25 mph",
+  /* ydsS = Sand tees · ydsP = Puerto Rico Classic tees · hist = [Sand round, Classic round] verified scores */
+  holes:[
+    {n:1,par:4,ydsS:438,ydsP:439,bearing:110,prio:"Standard",type:"par4",hist:{s:["par",4],p:["bogey",5]},
+      tee:["driver","Full two-shotter. Take the distance, center of the fairway, mid-iron in."],
+      app:["Mid-iron to <b>center of green</b>. Most misses run short — take enough club to cover the flag.","If you miss, miss <b>long and fat</b>, never short-sided (ARG is the leak)."],
+      green:["Lag to tap-in range, leave the comebacker uphill. Clean start."]},
+    {n:2,par:5,ydsS:530,ydsP:547,bearing:180,prio:"Attack",type:"par5reach",hist:{s:["birdie",4],p:["double",7]},
+      tee:["driver","<b>Reachable par 5 — birdie or blow-up, your call.</b> Birdied it on Sand, made 7 on Classic. ~232 in after a 298 drive. Rip it at the widest zone, but the miss has to stay in play."],
+      app:["<b>Fairway + neutral wind → go in 2</b> with fairway wood, favoring the <b>fat side</b> (sand is 25% for you — never short-side).","Lie not clean? Lay to a <b>full wedge number</b> and attack from there. <b>Take the birdie; never let this become the 7 again.</b>"],
+      green:["Two-putt birdie wins. Don't force eagle from trouble."]},
+    {n:3,par:4,ydsS:359,ydsP:361,bearing:270,prio:"Attack",type:"par4short",hist:{s:["par",4],p:["par",4]},
+      tee:["driver / 3-wood","Short par 4. Driver leaves a short wedge — only club down if a hazard sits in the 290–315 zone."],
+      app:["Wedge into your <b>strength</b> (26'8\" proximity beats Tour). Attack the flag's center-third, spin to the fat side."],
+      green:["A real birdie look. Committed, not cute."]},
+    {n:4,par:4,ydsS:410,ydsP:455,bearing:155,prio:"Standard",type:"par4",hist:{s:["double",6],p:["par",4]},
+      tee:["driver","Center fairway. Plays a lot longer from Classic tees (455) — take the full club, don't force it."],
+      app:["<b>Center of green.</b> The double here came from a short-side scramble — take one extra club and <b>miss long-fat</b>. Take the big number out of play."],
+      green:["Two putts, move on. Bogey beats compounding."]},
+    {n:5,par:5,ydsS:486,ydsP:535,bearing:45,prio:"Attack",type:"par5reach",hist:{s:["birdie",4],p:["birdie",4]},
+      tee:["driver","<b>Birdie machine — you birdied it BOTH rounds.</b> Driver at the widest zone."],
+      app:["<b>Go in 2 when the lie/wind allow</b>, favoring the fat side. Laying up? Full wedge number — your money shot."],
+      green:["Birdie is the expectation. Two-putt and bank it."]},
+    {n:6,par:3,ydsS:169,ydsP:170,bearing:135,prio:"Standard",type:"par3",hist:{s:["bogey",4],p:["par",3]},
+      tee:["mid-iron","<b>Center of the green.</b> Club up into wind — you bogeyed it on Sand by chasing it. A 20-ft middle putt is the best case; take it."],
+      app:[],
+      green:["Two-putt par is a win on every par 3 this week. Never the tucked pin."]},
+    {n:7,par:4,ydsS:421,ydsP:430,bearing:25,prio:"Standard",type:"par4",hist:{s:["par",4],p:["birdie",3]},
+      tee:["driver","Longer par 4. Driver, center — shortest possible approach into a long hole."],
+      app:["Mid/long-iron to <b>center</b>, aim biased to the fat side. With a longer club, short-side protection matters even more."],
+      green:["Birdied it once — a good two-putt par here is plenty."]},
+    {n:8,par:3,ydsS:194,ydsP:197,bearing:290,prio:"Standard",type:"par3",hist:{s:["bogey",4],p:["par",3]},
+      tee:["mid/long-iron","Longer par 3. <b>Center of the green</b>, club up for wind. You bogeyed it on Sand — accept center-green + two-putt as a strong result."],
+      app:[],
+      green:["Make peace with par before the tee. Two-putt and walk."]},
+    {n:9,par:4,ydsS:null,ydsP:394,bearing:25,prio:"Standard",type:"par4",hist:{s:["par",4],p:["par",4]},
+      tee:["driver","Mid-length par 4 (394) — par both rounds. Driver, center fairway, leaves a short-mid iron."],
+      app:["Mid-iron to <b>center</b>, miss long-fat. Steady par to turn."],
+      green:["Two-putt, make the turn even-keeled."]},
+    {n:10,par:4,ydsS:401,ydsP:405,bearing:205,prio:"Attack",type:"par4short",hist:{s:["birdie",3],p:["par",4]},
+      tee:["driver","Scoreable par 4 — birdied it on Sand. Driver leaves a short-mid iron."],
+      app:["Short-mid iron into your <b>strength</b>. Attack the center-third the flag sits in."],
+      green:["Real birdie look — but a stress-free par restarts the nine well."]},
+    {n:11,par:3,ydsS:153,ydsP:160,bearing:0,prio:"Attack",type:"par3",hist:{s:["birdie",2],p:["par",3]},
+      tee:["wedge / short-iron","<b>Short par 3 — you made 2 here.</b> One of your best birdie looks on the course. Still center-biased, but a wedge to a back-middle pin is a green-light at birdie."],
+      app:[],
+      green:["Take the birdie if the putt's there; never short-side it chasing a tuck."]},
+    {n:12,par:4,ydsS:428,ydsP:425,bearing:25,prio:"Standard",type:"par4",hist:{s:["par",4],p:["par",4]},
+      tee:["driver","Solid two-shot par 4 — par both rounds. Driver, center."],
+      app:["Mid-iron to <b>center</b>, miss long-fat. Don't over-attack — par is a good number here."],
+      green:["Two-putt par, keep the round moving."]},
+    {n:13,par:4,ydsS:382,ydsP:410,bearing:205,prio:"Attack",type:"par4short",hist:{s:["birdie",3],p:["birdie",3]},
+      tee:["driver","<b>Birdie machine — birdied it BOTH rounds.</b> Driver to a short wedge number. This is a stroke you take from the field."],
+      app:["Wedge into your <b>strength</b> — be aggressive at the flag's center-third, spin to the fat side."],
+      green:["Expect the birdie putt. Roll it in."]},
+    {n:14,par:4,ydsS:420,ydsP:420,bearing:25,prio:"Standard",type:"par4",hist:{s:["birdie",3],p:["bogey",5]},
+      tee:["driver","Volatile hole — birdie on Sand, bogey from the 477-yd Classic tee. From the back tee it's a <b>brute: protect par</b>."],
+      app:["Long approach to <b>center of green</b>, fat-side miss. On the Classic tee, a two-putt par is a win — don't short-side a long iron."],
+      green:["Two-putt par and exhale. Don't chase the birdie that isn't there."]},
+    {n:15,par:5,ydsS:551,ydsP:552,bearing:25,prio:"Survive",type:"par5reach",hist:{s:["bogey",6],p:["bogey",6]},
+      tee:["driver / position","<b>⚠ Your biggest leak — bogey BOTH rounds on a par 5 you should be scoring on.</b> Something here keeps costing you a stroke. Until we map the hazard, play it as a <b>strict 3-shotter</b>: tee ball in the fairway is the only goal."],
+      app:["<b>Lay up to a full wedge number — do not flirt with the trouble.</b> Take the aggressive 2nd shot OUT of play here. Your wedge game turns this into a par, maybe a birdie putt, with zero blow-up risk."],
+      green:["Two-putt par here is a <b>win against your history</b>. Bank it and go."]},
+    {n:16,par:3,ydsS:160,ydsP:168,bearing:225,prio:"Standard",type:"par3",hist:{s:["par",3],p:["par",3]},
+      tee:["short/mid-iron","Steady par 3 — par both rounds. <b>Center of green</b>, club up for wind. Your most reliable one-shotter."],
+      app:[],
+      green:["Two-putt par, keep it clean into the finish."]},
+    {n:17,par:4,ydsS:365,ydsP:376,bearing:225,prio:"Standard",type:"par4short",hist:{s:["bogey",5],p:["par",4]},
+      tee:["driver / position","Short-ish par 4 but it bit you for a bogey on Sand — positioning matters more than power. Take the club that puts you in the fairway at a full wedge number."],
+      app:["Wedge to <b>center</b>. Don't short-side it; a calm par here sets up 18."],
+      green:["Two-putt par. Set up the closing hole."]},
+    {n:18,par:5,ydsS:578,ydsP:595,bearing:225,prio:"Attack",type:"par5reach",hist:{s:["birdie",4],p:["birdie",4]},
+      tee:["driver","<b>Your closer — birdied it BOTH rounds.</b> Long par 5, but you own it. Rip driver, then a 3-shot or go-for-it depending on the number."],
+      app:["Favor the <b>fat side</b> on the approach. Whether in 2 or 3, your wedge sets up the birdie. <b>Finish the round on a red number.</b>"],
+      green:["Two-putt birdie to close. Trust it — you've done it every time."]},
+  ]
+};
+
+/* ====================== PLAYER ENGINE PARAMS ====================== */
+const AY = { driveAvg:298 };
+
+/* ====================== WIND ENGINE ====================== */
+function dirArrow(deg){const a=["N","NE","E","SE","S","SW","W","NW"];return a[Math.round(deg/45)%8];}
+function windEffect(holeBearing, windFromDeg, mph){
+  if(holeBearing===null||holeBearing===undefined) return {known:false, mph, windFrom:windFromDeg};
+  const delta = ((windFromDeg - holeBearing + 540)%360) - 180;     // -180..180
+  const head  = mph * Math.cos(delta*Math.PI/180);                 // + head, - tail
+  const cross = mph * Math.sin(delta*Math.PI/180);                 // + from right, - from left
+  let clubTxt="", aimTxt="", tag="";
+  if(head >= 4){const c=Math.max(1,Math.round(head/8)); clubTxt=`headwind — take <b>+${c} club${c>1?'s':''}</b>, swing easy`; tag="head";}
+  else if(head <= -4){const c=Math.max(1,Math.round(-head/13)); clubTxt=`downwind — <b>−${c} club${c>1?'s':''}</b>, expect release, land it short of the flag`; tag="tail";}
+  else {clubTxt="little head/tail — play stock yardage"; tag="flat";}
+  const cm=Math.abs(cross);
+  if(cm>=5){
+    const side = cross>0 ? "right" : "left";
+    const yds = Math.max(2, Math.round(cm*0.6));
+    const sev = cm>=18?"strong":cm>=10?"moderate":"light";
+    aimTxt = `${sev} cross from the <b>${side}</b> — aim ~${yds} yds into it (start it ${side==='right'?'right':'left'} edge)`;
+  }
+  return {known:true, head, cross, clubTxt, aimTxt, tag, mph, windFrom:windFromDeg};
+}
+
+/* ====================== RENDER ====================== */
+let WX = {windFrom:90, mph:16};
+let TEE = 'P';  // PR Classic = Island Amateur tournament tees (default for this event)
+
+function holeYds(h){ const y = TEE==='S'? h.ydsS : h.ydsP; return y==null ? '—' : y; }
+function relColor(rel){return rel==='birdie'||rel==='eagle'?'var(--green)':rel==='par'?'var(--mut)':rel==='bogey'?'#ff9f43':'var(--survive)';}
+function histChip(h){
+  if(!h.hist) return '';
+  const one=(lbl,d)=>`<span class="chip" style="color:${relColor(d[0])}"><b style="color:inherit">${lbl}</b> ${d[0]} (${d[1]})</span>`;
+  return `<div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px">
+    ${one('Sand',h.hist.s)} ${one('Classic',h.hist.p)}</div>`;
+}
+
+function pin(type){
+  const c = {par5reach:'var(--gold)',par4short:'var(--gold)',par4:'var(--blue)',par3:'var(--purple)'}[type]||'var(--blue)';
+  return `<span class="pin" style="background:${c}"></span>`;
+}
+function holeCard(h){
+  const we = windEffect(h.bearing, WX.windFrom, WX.mph);
+  const dirName = dirArrow(h.bearing);
+  const wbody = `<b>Plays ${dirName}.</b> ${we.clubTxt}.${we.aimTxt? ' '+we.aimTxt+'.':''}`;
+  const headChip = `<div class="h-wind">plays <b>${dirName}</b> · today: <b>${we.tag==='head'?'into the wind':we.tag==='tail'?'downwind':'crosswind'}</b> · ${WX.mph}mph from ${dirArrow(WX.windFrom)}</div>`;
+
+  const plays = [];
+  if(h.tee&&h.tee.length){plays.push(`<div class="play"><div class="p-lbl">${pin(h.type)} Tee — ${h.tee[0]}</div>
+     <div class="p-txt">${h.tee.slice(1).map(t=>t).join('<br>')}</div></div>`);}
+  if(h.app&&h.app.length){plays.push(`<div class="play"><div class="p-lbl"><span class="pin" style="background:var(--teal)"></span> Approach</div>
+     <div class="p-txt">${h.app.join('<br>')}</div></div>`);}
+  if(h.green&&h.green.length){plays.push(`<div class="play"><div class="p-lbl"><span class="pin" style="background:var(--purple)"></span> Green / Putt</div>
+     <div class="p-txt">${h.green.join('<br>')}</div></div>`);}
+
+  return `<div class="hole" style="animation-delay:${h.n*30}ms">
+    <div class="h-head" onclick="this.parentNode.classList.toggle('open')">
+      <div class="h-no">${h.n}</div>
+      <div class="h-meta"><div class="pr">PAR ${h.par} <small>· ${holeYds(h)} yds</small></div></div>
+      <div class="h-prio p${h.prio}">${h.prio}</div>
+      <span class="caret">▾</span>
+    </div>
+    ${headChip}
+    <div class="h-body">
+      ${histChip(h)}
+      ${plays.join('')}
+      <div class="windbox">
+        <div class="wb-h">⛳ Today's wind adjustment</div>
+        <div class="wb-t">${wbody}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  document.getElementById('courseName').textContent = COURSE.name;
+  const t = COURSE.tees[TEE];
+  document.getElementById('courseSub').innerHTML =
+    `<span><b>${t.label}</b> tees · ${t.total} yds</span><span>Par <b>${COURSE.par}</b></span>
+     <span><b>${COURSE.design}</b> design</span><span>${COURSE.loc.label}</span><span>${COURSE.prevailing}</span>`;
+  document.getElementById('frontHoles').innerHTML =
+    COURSE.holes.filter(h=>h.n<=9).map(holeCard).join('');
+  document.getElementById('backHoles').innerHTML =
+    COURSE.holes.filter(h=>h.n>=10).map(holeCard).join('');
+  renderReadout();
+}
+function renderReadout(){
+  const el=document.getElementById('wxReadout');
+  el.innerHTML = `<span class="chip">💨 <b>${WX.mph} mph</b> from <b>${dirArrow(WX.windFrom)}</b></span>
+    <span class="chip">prevailing here: <b>Easterly</b></span>
+    <span class="chip">par 3s most exposed — <b>club up</b></span>`;
+}
+
+/* ====================== WEATHER PULL (Open-Meteo, keyless) ====================== */
+async function autoWeather(){
+  const status=document.getElementById('wxStatus'), note=document.getElementById('wxNote');
+  status.textContent='fetching…';
+  try{
+    const d=document.getElementById('wxDate').value || new Date().toISOString().slice(0,10);
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${COURSE.loc.lat}&longitude=${COURSE.loc.lng}`+
+      `&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m,temperature_2m,precipitation_probability`+
+      `&wind_speed_unit=mph&temperature_unit=fahrenheit&timezone=auto&start_date=${d}&end_date=${d}`;
+    const r=await fetch(url); if(!r.ok) throw new Error('http '+r.status);
+    const j=await r.json();
+    const hr=parseInt(document.getElementById('wxTime').value);
+    const idx=Math.min(hr, j.hourly.time.length-1);
+    const spd=Math.round(j.hourly.wind_speed_10m[idx]);
+    const dir=Math.round(j.hourly.wind_direction_10m[idx]);
+    const gust=Math.round(j.hourly.wind_gusts_10m[idx]);
+    const temp=Math.round(j.hourly.temperature_2m[idx]);
+    const rain=j.hourly.precipitation_probability[idx];
+    WX.mph=spd; WX.windFrom=dir;
+    document.getElementById('wxMph').value=spd;
+    // snap dir select to nearest 45
+    document.getElementById('wxDir').value=String((Math.round(dir/45)%8)*45);
+    status.textContent='live ✓';
+    note.innerHTML=`Live forecast: <b>${spd} mph</b> from <b>${dirArrow(dir)}</b> (gusts ${gust}) · ${temp}°F · ${rain}% rain. Adjust if the tournament board differs, then re-apply.`;
+    render();
+  }catch(e){
+    status.textContent='blocked';
+    note.innerHTML=`Auto-pull is blocked in this view (common inside the chat preview / CORS). <b>Enter wind manually</b> — open it in a browser tab or just read the range/board and type it in. The plan works identically either way.`;
+  }
+}
+
+/* ====================== WIRING ====================== */
+document.getElementById('wxApply').onclick=()=>{
+  WX.windFrom=Number(document.getElementById('wxDir').value);
+  WX.mph=Number(document.getElementById('wxMph').value)||0;
+  document.getElementById('wxStatus').textContent='manual';
+  render();
+};
+document.getElementById('teeSel').onchange=(e)=>{ TEE=e.target.value; render(); };
+document.getElementById('wxAuto').onclick=autoWeather;
+document.querySelectorAll('.nav button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    ['front','back','feed'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+    document.getElementById(b.dataset.n).classList.remove('hidden');
+  };
+});
+// default date = Round 1 of the Island Amateur
+document.getElementById('wxDate').value='2026-06-05';
+// round quick-picks
+document.querySelectorAll('#wxRounds button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('#wxRounds button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('wxDate').value=b.dataset.d;
+  };
+});
+document.querySelector('#wxRounds button').classList.add('active');
+render();
+</script>
+</body>
+</html>
