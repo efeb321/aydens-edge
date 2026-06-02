@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<title>Ayden's Edge</title>
+<meta name="theme-color" content="#080b11">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ayden's Edge">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23080b11'/%3E%3Ccircle cx='90' cy='74' r='34' fill='none' stroke='%23ff2d6b' stroke-width='9'/%3E%3Ccircle cx='90' cy='74' r='6' fill='%23ff2d6b'/%3E%3Ctext x='90' y='150' font-family='Arial Black,sans-serif' font-size='40' font-weight='900' fill='%23fff' text-anchor='middle'%3EAE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080b11; --bg2:#10161f; --bg3:#19212d; --line:#222d3c;
+    --ink:#e9eff6; --mut:#8593a6; --mut2:#5d6a7d;
+    --crimson:#ff2d6b; --gold:#f5b53d; --teal:#2dd4bf; --rose:#ff2d6b; --purple:#a855f7; --blue:#3b82f6; --green:#34d399;
+    --attack:#34d399; --standard:#3b82f6; --survive:#ff5470;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);font-family:'Saira',sans-serif;line-height:1.45;
+    background-image:radial-gradient(900px 500px at 80% -10%, rgba(255,45,107,.10), transparent 60%),radial-gradient(700px 500px at -10% 10%, rgba(59,130,246,.07), transparent 55%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased;
+    padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);overscroll-behavior-y:none}
+  *{-webkit-tap-highlight-color:rgba(255,45,107,.25)}
+  .wrap{max-width:780px;margin:0 auto;padding:0 16px 80px}
+  h1,h2,h3,.disp{font-family:'Saira Condensed',sans-serif;letter-spacing:.01em}
+  .num{font-family:'Saira Condensed',sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
+
+  header{padding:26px 0 14px;border-bottom:1px solid var(--line);position:relative}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Saira Condensed';font-weight:800;
+    font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+  .brand b{color:var(--crimson)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--crimson);box-shadow:0 0 12px var(--crimson)}
+  .course-name{font-size:34px;font-weight:800;line-height:1.02;margin:10px 0 4px;text-transform:uppercase}
+  .course-sub{color:var(--mut);font-size:14px;display:flex;flex-wrap:wrap;gap:6px 14px}
+  .course-sub b{color:var(--ink);font-weight:600}
+  .event-line{margin:7px 0 2px;font-size:13px;color:var(--crimson);letter-spacing:.02em;font-family:'Saira Condensed';font-weight:600;text-transform:uppercase}
+  .event-line b{color:#fff}
+
+  .player{margin:16px 0;background:linear-gradient(180deg,var(--bg2),var(--bg2));border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .player-top{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .avatar{width:42px;height:42px;border-radius:50%;background:var(--bg3);display:grid;place-items:center;font-weight:800;font-family:'Saira Condensed';color:var(--crimson);border:1px solid var(--line)}
+  .player-top .nm{font-family:'Saira Condensed';font-weight:800;font-size:20px;text-transform:uppercase;line-height:1}
+  .player-top .tag{color:var(--mut);font-size:12.5px;letter-spacing:.05em}
+  .pq{margin-left:auto;text-align:right}
+  .pq .num{font-size:30px;line-height:.9}
+  .pq .lbl{color:var(--mut);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+  .cat{background:var(--bg2);padding:11px 8px;text-align:center}
+  .cat .c-lbl{font-size:10px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase}
+  .cat .c-val{font-family:'Saira Condensed';font-weight:800;font-size:24px;line-height:1.1}
+  .cat .c-note{font-size:10.5px;color:var(--mut);line-height:1.2}
+  .ott{color:var(--gold)} .app{color:var(--teal)} .arg{color:var(--rose)} .putt{color:var(--purple)}
+  .rules{padding:13px 16px;display:grid;gap:7px;background:var(--bg2)}
+  .rule{display:flex;gap:9px;font-size:13px;color:#cdd6e2}
+  .rule .rn{font-family:'Saira Condensed';font-weight:800;color:var(--crimson);min-width:16px}
+  .rule b{color:#fff;font-weight:600}
+
+  .wx{margin:16px 0;border:1px solid var(--line);border-radius:14px;background:var(--bg2);overflow:hidden}
+  .wx-head{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid var(--line);
+    font-family:'Saira Condensed';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--mut)}
+  .wx-head .live{margin-left:auto;font-size:10px;letter-spacing:.1em;padding:3px 8px;border-radius:20px;background:var(--bg3);color:var(--mut)}
+  .wx-body{padding:14px 16px}
+  .wx-rounds{display:flex;gap:6px;margin-bottom:12px}
+  .wx-rounds button{flex:1;background:var(--bg3);border:1px solid var(--line);color:var(--mut);border-radius:9px;
+    padding:8px 6px;font-family:'Saira Condensed';font-weight:700;letter-spacing:.04em;font-size:12.5px;cursor:pointer;transition:.15s}
+  .wx-rounds button.active{background:var(--crimson);color:#fff;border-color:var(--crimson)}
+  .wx-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:4px}
+  .field label{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+  select,input[type=number],input[type=date]{background:var(--bg);border:1px solid var(--line);color:var(--ink);
+    border-radius:9px;padding:9px 10px;font-family:'Saira';font-size:14px;outline:none}
+  select:focus,input:focus{border-color:var(--crimson)}
+  input[type=number]{width:84px}
+  .btn{background:var(--crimson);color:#fff;border:none;border-radius:9px;padding:10px 16px;font-family:'Saira Condensed';
+    font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13.5px;cursor:pointer;transition:.15s}
+  .btn:hover{filter:brightness(1.08)} .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:var(--bg3);color:var(--ink);border:1px solid var(--line)}
+  .wx-readout{margin-top:13px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--mut)}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--line);border-radius:20px;padding:5px 11px;font-size:12.5px}
+  .chip b{color:var(--ink);font-weight:600}
+  .wx-note{margin-top:10px;font-size:11.5px;color:var(--mut2);line-height:1.4}
+
+  .nav{position:sticky;top:0;z-index:20;display:flex;gap:6px;padding:10px 0;background:rgba(8,11,17,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-bottom:14px}
+  .nav button{flex:1;background:var(--bg3);border:1px solid var(--line);color:var(--mut);border-radius:9px;
+    padding:8px;font-family:'Saira Condensed';font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer}
+  .nav button.active{background:var(--crimson);color:#fff;border-color:var(--crimson)}
+  .sec-title{font-family:'Saira Condensed';font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    font-size:13px;color:var(--mut);margin:6px 2px 10px;display:flex;align-items:center;gap:8px}
+  .sec-title::after{content:'';flex:1;height:1px;background:var(--line)}
+
+  .hole{border:1px solid var(--line);border-radius:14px;background:var(--bg2);margin-bottom:12px;overflow:hidden}
+  .h-head{display:flex;align-items:center;gap:13px;padding:14px 16px;cursor:pointer;position:relative;min-height:56px}
+  .h-no{font-family:'Saira Condensed';font-weight:800;font-size:30px;line-height:.8;width:38px;text-align:center}
+  .h-meta{display:flex;flex-direction:column;gap:1px}
+  .h-meta .pr{font-family:'Saira Condensed';font-weight:700;font-size:15px;letter-spacing:.04em}
+  .h-meta .pr small{color:var(--mut);font-weight:500}
+  .h-meta .pr b{color:var(--gold)}
+  .h-prio{margin-left:auto;font-family:'Saira Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;padding:5px 11px;border-radius:20px}
+  .pAttack{background:rgba(52,211,153,.13);color:var(--attack);border:1px solid rgba(52,211,153,.3)}
+  .pStandard{background:rgba(59,130,246,.13);color:var(--standard);border:1px solid rgba(59,130,246,.3)}
+  .pSurvive{background:rgba(255,84,112,.13);color:var(--survive);border:1px solid rgba(255,84,112,.3)}
+  .h-wind{font-size:11.5px;color:var(--mut);display:flex;align-items:center;gap:5px;padding:0 16px 4px;margin-top:-4px}
+  .h-wind b{color:var(--gold)}
+  .caret{margin-left:8px;color:var(--mut);transition:.2s;font-size:12px}
+  .hole.open .caret{transform:rotate(180deg)}
+  .h-body{display:none;padding:0 16px 16px;border-top:1px solid var(--line);margin-top:4px;padding-top:13px}
+  .hole.open .h-body{display:block}
+  .play-row{margin-bottom:12px}
+  .play-row:last-child{margin-bottom:0}
+  .play-row .p-lbl{font-family:'Saira Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:11px;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  .pin{width:6px;height:6px;border-radius:50%;display:inline-block}
+  .play-row .p-txt{font-size:13.5px;color:#d4dce7}
+  .play-row .p-txt b{color:#fff;font-weight:600}
+  .windbox{margin-top:11px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+  .windbox .wb-h{font-family:'Saira Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:10.5px;color:var(--gold);margin-bottom:4px}
+  .windbox .wb-t{font-size:13px;color:#d4dce7}
+  .windbox .wb-t b{color:#fff}
+  .flagbox{margin-top:10px;background:rgba(245,181,61,.08);border:1px solid rgba(245,181,61,.32);border-radius:10px;padding:9px 11px;font-size:12px;color:#f3d79a}
+  .flagbox b{color:var(--gold)}
+  /* per-hole offset control */
+  .offbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:13px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .offbar .ob-fixed{font-size:12px;color:var(--mut)}
+  .offbar .ob-fixed b{color:var(--ink);font-weight:600}
+  .offbar .ob-set{display:flex;align-items:center;gap:6px;margin-left:auto}
+  .offbar label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+  .offbar input{width:64px;font-size:15px;text-align:center;padding:7px 6px}
+  .offbar .ob-plays{font-family:'Saira Condensed';font-weight:800;font-size:17px;color:var(--gold)}
+  .offwarn{color:var(--survive);font-size:11px;margin-top:6px;display:none}
+  .offwarn.show{display:block}
+  .hist-chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+
+  .feed{margin-top:22px;border:1px dashed var(--line);border-radius:14px;background:rgba(16,22,31,.5);padding:16px}
+  .feed h3{font-size:16px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+  .feed p{font-size:13px;color:var(--mut);margin-bottom:8px}
+  .feed ul{list-style:none;display:grid;gap:6px}
+  .feed li{font-size:13px;color:#cdd6e2;display:flex;gap:8px}
+  .feed li::before{content:'›';color:var(--crimson);font-weight:800}
+  footer{margin-top:26px;text-align:center;color:var(--mut2);font-size:11px;letter-spacing:.05em}
+  .hidden{display:none}
+  .nav button,.wx-rounds button,select,.btn{min-height:44px}
+
+  @media (max-width:560px){
+    .wrap{padding:0 12px 90px}
+    header{padding:18px 0 12px}
+    .course-name{font-size:27px}
+    .event-line{font-size:12px}
+    .course-sub{font-size:12px;gap:4px 10px}
+    .cats{grid-template-columns:repeat(2,1fr)}
+    .cat .c-val{font-size:26px}
+    .player-top .nm{font-size:18px}
+    .pq .num{font-size:26px}
+    .wx-row{gap:9px}
+    .field{flex:1 1 calc(50% - 5px)}
+    input[type=number]{width:100%}
+    select,input[type=number],input[type=date]{font-size:16px;padding:11px 10px}
+    #wxAuto,#wxApply{flex:1 1 100%}
+    .h-no{font-size:26px;width:32px}
+    .h-meta .pr{font-size:14px}
+    .h-prio{font-size:10px;padding:4px 9px}
+    .play-row .p-txt{font-size:14px}
+    .windbox .wb-t{font-size:13.5px}
+    .nav{gap:5px;padding:9px 0}
+    .nav button{font-size:12px;padding:9px 4px}
+    .offbar input{width:72px}
+  }
+  @media (max-width:380px){ .course-name{font-size:24px} .cat .c-note{font-size:9.5px} }
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span> AYDEN'S <b>EDGE</b> &nbsp;·&nbsp; TOURNAMENT GAME PLAN</div>
+    <div class="course-name" id="courseName">Grand Reserve — Championship</div>
+    <div class="event-line"><b>Island Amateur Championship</b> · PRGA · June 5–7, 2026 · 54 holes</div>
+    <div class="course-sub" id="courseSub"></div>
+  </header>
+
+  <div class="player">
+    <div class="player-top">
+      <div class="avatar">AF</div>
+      <div>
+        <div class="nm">Ayden Febres</div>
+        <div class="tag">Scratch · 20-round profile + Grand Reserve history</div>
+      </div>
+      <div class="pq"><div class="num" style="color:var(--blue)">90</div><div class="lbl">Player Qual</div></div>
+    </div>
+    <div class="cats">
+      <div class="cat"><div class="c-lbl">OTT</div><div class="c-val ott">101</div><div class="c-note">Weapon · +0.61 SG</div></div>
+      <div class="cat"><div class="c-lbl">APP</div><div class="c-val app">93</div><div class="c-note">Solid · 26'8" prox</div></div>
+      <div class="cat"><div class="c-lbl">ARG</div><div class="c-val arg">74</div><div class="c-note">The leak · −1.73</div></div>
+      <div class="cat"><div class="c-lbl">PUTT</div><div class="c-val putt">95</div><div class="c-note">3–8ft soft · −1.80</div></div>
+    </div>
+    <div class="rules">
+      <div class="rule"><span class="rn">1</span><div><b>Tee is the weapon.</b> 285 carry / 298 total, ±30 side. Default driver — only club down when a hazard truly sits in the miss cone or a note says otherwise.</div></div>
+      <div class="rule"><span class="rn">2</span><div><b>Hit greens, protect the short game.</b> ARG is the leak. Aim center, take enough club, <b>never short-side</b> — miss to the fat side.</div></div>
+      <div class="rule"><span class="rn">3</span><div><b>Know your holes.</b> Birdie: <b>5, 13, 18</b>. The leak is <b>15</b> — strict 3-shotter. Carries below are computed from the StrackaLine book and your per-hole tee offset.</div></div>
+    </div>
+  </div>
+
+  <div class="wx">
+    <div class="wx-head">⛅ Round Conditions <span class="live" id="wxStatus">manual</span></div>
+    <div class="wx-body">
+      <div class="wx-rounds" id="wxRounds">
+        <button data-d="2026-06-05">R1 · Fri 6/5</button>
+        <button data-d="2026-06-06">R2 · Sat 6/6</button>
+        <button data-d="2026-06-07">R3 · Sun 6/7</button>
+      </div>
+      <div class="wx-row">
+        <div class="field"><label>Round date</label><input type="date" id="wxDate"></div>
+        <div class="field"><label>Tee time</label>
+          <select id="wxTime">
+            <option>6:00</option><option>7:00</option><option selected>8:00</option><option>9:00</option>
+            <option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option>
+          </select>
+        </div>
+        <div class="field"><label>Wind from</label>
+          <select id="wxDir">
+            <option value="0">N ↓</option><option value="45">NE ↙</option><option value="90" selected>E ←</option>
+            <option value="135">SE ↖</option><option value="180">S ↑</option><option value="225">SW ↗</option>
+            <option value="270">W →</option><option value="315">NW ↘</option>
+          </select>
+        </div>
+        <div class="field"><label>Speed (mph)</label><input type="number" id="wxMph" value="16" min="0" max="50"></div>
+        <button class="btn ghost" id="wxAuto">⤓ Auto-pull</button>
+        <button class="btn" id="wxApply">Apply to plan</button>
+      </div>
+      <div class="wx-readout" id="wxReadout"></div>
+      <div class="wx-note" id="wxNote">Manual entry is the reliable core — read wind off the range or the tournament board and hit <b>Apply</b>. “Auto-pull” fetches the live forecast and may be blocked inside the chat preview; if so, enter it manually.</div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="active" data-n="front">Front 9</button>
+    <button data-n="back">Back 9</button>
+    <button data-n="feed">Add a course</button>
+  </div>
+
+  <div id="front"><div class="sec-title">Front Nine</div><div id="frontHoles"></div></div>
+  <div id="back" class="hidden"><div class="sec-title">Back Nine</div><div id="backHoles"></div></div>
+
+  <div id="feed" class="hidden">
+    <div class="feed">
+      <h3>How to load any course</h3>
+      <p>Send these to Claude and a fully-tailored plan comes back:</p>
+      <ul>
+        <li><b>StrackaLine map pages</b> (aerial + green) for each hole — the carries and hazards live there.</li>
+        <li><b>Back-tee total + tee offset</b> per hole (offset = how far forward Ayden's tee is, in yards; 0 = back tee).</li>
+        <li><b>Latest Clippd profile</b> if his numbers move (carry, dispersion, SG by category).</li>
+      </ul>
+      <p style="margin-top:10px">The engine computes carries, club, aim and the never-short-side rule from that data. The live wind tool travels with every course.</p>
+    </div>
+  </div>
+
+  <footer>AYDEN'S EDGE · interim build · carries computed by Claude from the verified StrackaLine book + Clippd profile · offsets adjustable per hole, morning-of</footer>
+</div>
+
+<script>
+/* ============================ DATA ============================
+   backTee  = fixed yards from the BACK tee to the green (never changes).
+   offset   = EDITABLE per hole. How far forward Ayden's tee is (<=0). 0 = playing the back tee.
+   Playing yards = backTee + offset.  Every hazard carry shifts by the same offset.
+   Hazard carries (nearYds/farYds, atYds) are BACK-TEE referenced, straight off the StrackaLine book.
+   bearing  = compass dir the hole plays TOWARD (for wind math). */
+const COURSE = {
+  name:"Grand Reserve — Championship",
+  loc:{lat:18.3803, lng:-65.8061, label:"Río Grande, Puerto Rico"},
+  par:72, design:"Tom Kite",
+  prevailing:"Easterly trade winds 15–25 mph",
+  /* fw = fairway geometry (BACK-TEE referenced):
+       safeEnd     = yard where safe landing ends (pinch / runout / cross-hazard start)
+       safeEndWhat = label for why
+       slope:{dir,sev} = fairway kicks TOWARD dir at landing (aim up the high side)
+       uphill      = yds of plays-like added to the approach by elevation
+       verify      = judgment-call flag (shows ⚠ in app)
+     teeOverride   = player's club call (wins over engine). teeOverrideNote = the why.
+     Hazard carries (nearYds/farYds) are BACK-TEE referenced. */
+  holes:[
+   {n:1,par:4,back:449,offset:0,bearing:110,prio:"Standard",shortSide:"L",
+    teeOverride:"3-wood", teeOverrideNote:"<b>3-wood (Ayden's call, back tee).</b> Lays back short of the 2nd left bunker & the pinch (~300). Driver brings the left bunkers into play with roll.",
+    fw:{safeEnd:300,safeEndWhat:"the left bunker / pinch",verify:"trigger = bunker vs pinch (Ayden to confirm)"},
+    hazards:[{type:"bunker",side:"L",nearYds:305,farYds:357}], green:"Falls low front-left, high back-right; breaks low-left.", greenNote:"Lag from above the hole; leave the comebacker uphill."},
+   {n:2,par:5,back:547,offset:0,bearing:180,prio:"Attack",shortSide:"R",
+    fw:{safeEnd:300,safeEndWhat:"the right bunkers (274–298)"},
+    hazards:[{type:"bunker",side:"R",nearYds:274,farYds:298},{type:"water",side:"L",lateral:true}], green:"Greenside bunker right.", greenNote:"Two-putt birdie wins. Don't force eagle from trouble."},
+   {n:3,par:4,back:386,offset:0,bearing:270,prio:"Attack",shortSide:"R",
+    fw:{safeEnd:253,safeEndWhat:"the right bunkers / neck (253–273)",verify:"pinch distance"},
+    hazards:[{type:"bunker",side:"R",nearYds:253,farYds:273},{type:"trees/water",side:"L",lateral:true}], green:"Fairway narrows late.", greenNote:"A real birdie look — committed, not cute."},
+   {n:4,par:4,back:455,offset:0,bearing:170,prio:"Standard",shortSide:"R",
+    fw:{safeEnd:290,safeEndWhat:"the bunker / water carry (265–290)",slope:{dir:"R",sev:"toward the water"},verify:"slope severity"},
+    hazards:[{type:"bunker",side:"L",nearYds:251,farYds:290},{type:"water",side:"R",lateral:true}], green:"Light greenside bunker right.", greenNote:"Two putts, move on. Bogey beats compounding."},
+   {n:5,par:5,back:535,offset:0,bearing:45,prio:"Attack",shortSide:"R",
+    fw:{safeEnd:292,safeEndWhat:"the left bunkers / neck (255–292)"},
+    hazards:[{type:"bunker",side:"L",nearYds:255,farYds:292},{type:"water",side:"R",lateral:true}], green:"Reachable in two when lie/wind allow.", greenNote:"Birdie is the expectation. Two-putt and bank it."},
+   {n:6,par:3,back:203,offset:0,bearing:135,prio:"Standard",shortSide:"L",
+    hazards:[{type:"water",side:"L",lateral:true},{type:"bunker",side:"R",lateral:true}], green:"Long, narrow green.", greenNote:"Two-putt par is a win. Never the tucked pin."},
+   {n:7,par:4,back:448,offset:0,bearing:25,prio:"Standard",shortSide:"L",
+    fw:{safeEnd:301,safeEndWhat:"the right bunker (301–335)",uphill:9,verify:"uphill plays-like yards"},
+    hazards:[{type:"bunker",side:"R",nearYds:301,farYds:335},{type:"water/sand",side:"L",lateral:true}], green:"Plays uphill; water left of the green.", greenNote:"A good two-putt par here is plenty."},
+   {n:8,par:3,back:238,offset:0,bearing:290,prio:"Standard",shortSide:"R",
+    hazards:[{type:"bunker",side:"L",lateral:true},{type:"bunker",side:"R",lateral:true}], green:"Long; bunker left, complex front-right.", greenNote:"Make peace with par before the tee."},
+   {n:9,par:4,back:450,offset:0,bearing:25,prio:"Standard",shortSide:"L",
+    fw:{safeEnd:320,safeEndWhat:"the fairway run-out",verify:"pinch / runout distance"},
+    hazards:[], green:"Severe: high back-right, low front-left, funnels low-left.", greenNote:"Two-putt, make the turn even-keeled."},
+   {n:10,par:4,back:430,offset:0,bearing:205,prio:"Attack",shortSide:"L",teeOverride:"layup",
+    teeOverrideNote:"<b>Layup off the tee (your note).</b> Club that leaves a full wedge — right fairway bunkers carry ~%CARRY% to clear from your tee.",
+    fw:{safeEnd:292,safeEndWhat:"the right fairway bunkers (292–331)"},
+    hazards:[{type:"bunker",side:"R",nearYds:292,farYds:331}], green:"Falls front / low-left.", greenNote:"Real birdie look — a stress-free par restarts the nine."},
+   {n:11,par:3,back:192,offset:0,bearing:0,prio:"Attack",shortSide:"L",teeOverride:"wedge / short-iron",
+    teeOverrideNote:"<b>Finish the same side as the pin (your note).</b> Tiered green — wrong side leaves a putt over a ridge. Water + bunker front-left: never bail left.",
+    hazards:[{type:"water",side:"L",lateral:true}], green:"Steep, tiered.", greenNote:"Take the birdie if the putt's there; never short-side chasing a tuck."},
+   {n:12,par:4,back:465,offset:0,bearing:25,prio:"Standard",shortSide:"R",
+    fw:{safeEnd:300,safeEndWhat:"the right bunker (300–318)"},
+    hazards:[{type:"bunker",side:"R",nearYds:300,farYds:318},{type:"water",side:"R",lateral:true}], green:"Signature hole, into the wind; ocean behind the green.", greenNote:"Two-putt par — don't over-attack."},
+   {n:13,par:4,back:410,offset:0,bearing:205,prio:"Attack",shortSide:"L",teeOverride:"3-wood",
+    teeOverrideNote:"<b>3-wood off the tee (your note).</b> Birdie hole — take the water LEFT out of play and leave a full wedge.",
+    fw:{safeEnd:307,safeEndWhat:"a comfortable layup short of trouble"},
+    hazards:[{type:"water",side:"L",lateral:true}], green:"Low left/center, high lower-right.", greenNote:"Expect the birdie putt. Roll it in."},
+   {n:14,par:4,back:477,offset:0,bearing:25,prio:"Standard",shortSide:"L",
+    fw:{safeEnd:290,safeEndWhat:"the cross bunkers L&R (290–304)"},
+    hazards:[{type:"bunker",side:"L",nearYds:290,farYds:304},{type:"bunker",side:"R",nearYds:290,farYds:304},{type:"water",side:"L",lateral:true}], green:"Bean-shaped; low through the center.", greenNote:"Two-putt par and exhale. Brute hole."},
+   {n:15,par:5,back:600,offset:0,bearing:25,prio:"Survive",shortSide:"R",teeOverride:"position",layupTo:120,
+    teeOverrideNote:"<b>⚠ SURVIVE — your biggest leak, bogey both rounds. Strict 3-shotter.</b> Tee ball in the fairway is the ONLY goal; waste/sand runs the whole RIGHT side.",
+    fw:{safeEnd:316,safeEndWhat:"the fairway before the waste area"},
+    hazards:[{type:"waste/sand",side:"R",lateral:true}], green:"Severe.", greenNote:"Two-putt par here is a win against your history. Bank it."},
+   {n:16,par:3,back:202,offset:0,bearing:225,prio:"Standard",shortSide:"L",
+    hazards:[{type:"water",side:"L",lateral:true},{type:"bunker",side:"L",lateral:true}], green:"Carry over water; bunker front-left.", greenNote:"Two-putt par, keep it clean into the finish."},
+   {n:17,par:4,back:411,offset:0,bearing:225,prio:"Standard",shortSide:"L",
+    fw:{safeEnd:274,safeEndWhat:"the right bunkers (233–274)"},
+    flag:"Right-side hazard type not yet confirmed from the book (water vs. trees). Verify before trusting a tight line.",
+    hazards:[{type:"bunker",side:"R",nearYds:233,farYds:274},{type:"hazard (confirm)",side:"R",lateral:true}], green:"—", greenNote:"Two-putt par. Set up the closing hole."},
+   {n:18,par:5,back:630,offset:0,bearing:225,prio:"Attack",shortSide:"R",
+    fw:{safeEnd:340,safeEndWhat:"a comfortable driver landing"},
+    hazards:[{type:"bunker",side:"L",nearYds:355,farYds:375}], green:"Closer — birdied both rounds.", greenNote:"Two-putt birdie to close. You've done it every time."},
+  ]
+};
+
+/* ====================== PLAYER MODEL (Clippd) ====================== */
+const AY = {
+  clubs:[ {k:"driver",carry:285,total:298,side:30},
+          {k:"3-wood",carry:268,total:278,side:24},
+          {k:"2-iron",carry:233,total:240,side:18} ],
+  irons:[["4i",215],["5i",203],["6i",191],["7i",178],["8i",166],["9i",154],["PW",142],["50\u00b0",128],["54\u00b0",112],["58\u00b0",98]],
+  shortMiss:30
+};
+const CLUB_OPTS=["driver","3-wood","2-iron","layup","position","wedge / short-iron"];
+const byK=k=>AY.clubs.find(c=>c.k===k);
+const opp = s => s==="L"?"R":s==="R"?"L":"center";
+const isPenalty = t => /water|waste|sand|trees/i.test(t);
+
+/* ====================== ENGINE v4 ====================== */
+function dirArrow(deg){const a=["N","NE","E","SE","S","SW","W","NW"];return a[Math.round(((deg%360)+360)%360/45)%8];}
+function windComp(b,wf,mph){const d=((wf-b+540)%360)-180;return{head:mph*Math.cos(d*Math.PI/180),cross:mph*Math.sin(d*Math.PI/180)};}
+function playsLike(y,head){return Math.round(y+(head>=0?head*1.3:head*0.9));}
+function pickIron(pl){let b=null;for(const[n,c]of AY.irons){if(c>=pl&&(!b||c<b[1]))b=[n,c];}return b?b[0]:(pl>233?"2-iron / 3-wood":"58\u00b0");}
+
+function teePlan(h,W){
+  const w=windComp(h.bearing,W.windFrom,W.mph), head=Math.max(0,w.head);
+  // effective override = round-of edit (h.userClub) beats baked teeOverride
+  const ov = h.userClub || h.teeOverride;
+  if(h.par===3 && !ov){
+    const pen=(h.hazards||[]).filter(x=>x.lateral&&isPenalty(x.type));
+    const b=pen.length?opp(pen[0].side):(opp(h.shortSide)||"center");
+    const L=[`Tee shot to the green — center, favor the <b>${b}</b> side.`];
+    if(pen.length) L.push(`${pen[0].side} is ${pen[0].type} — never bail ${pen[0].side}.`);
+    return {club:"tee shot", tag:null, aim:b, lines:L};
+  }
+  if(ov){
+    let note = h.userClub ? `<b>${h.userClub} (your round-of pick).</b>` : (h.teeOverrideNote||`${ov} — set call.`);
+    if(note.indexOf("%CARRY%")>=0){const hz=(h.hazards||[]).find(x=>x.farYds!=null);note=note.replace("%CARRY%",hz?Math.round(hz.farYds+h.offset):"—");}
+    return {club:ov, tag:h.userClub?"your pick":"Ayden's club", lines:[note]};
+  }
+  const lines=[], fw=h.fw;
+  const safeEndAy = fw&&fw.safeEnd!=null ? fw.safeEnd+h.offset : null;
+  let chosen=null, reason="";
+  if(safeEndAy!=null){
+    for(const c of AY.clubs){ if(c.total-head<=safeEndAy){chosen=c;reason=`stays short of ${fw.safeEndWhat||"the pinch"} (~${Math.round(safeEndAy)})`;break;} }
+    if(!chosen){chosen=AY.clubs[AY.clubs.length-1];reason=`even ${chosen.k} reaches ${fw.safeEndWhat||"the pinch"} — take the shortest safe club`;}
+  } else { chosen=byK("driver"); reason="no pinch in range"; }
+  const penalty=(h.hazards||[]).filter(x=>x.lateral&&isPenalty(x.type));
+  let bias = penalty.length? opp(penalty[0].side) : (opp(h.shortSide)||"center");
+  lines.push(`<b>${chosen.k}</b> — ${reason}. Lands ~${Math.round(chosen.total-head)} (carry ${Math.round(chosen.carry-head)}).`);
+  if(penalty.length) lines.push(`${penalty[0].side} side is ${penalty[0].type} the whole way — <b>never bail ${penalty[0].side}</b>; favor ${bias}.`);
+  if(fw&&fw.slope&&fw.slope.sev){const aimHigh=opp(fw.slope.dir);
+    lines.push(`Fairway kicks <b>${fw.slope.dir}</b> at the landing (${fw.slope.sev}) — start it up the <b>${aimHigh}</b> side, let it feed to center.`); bias=aimHigh;}
+  const reachLong=chosen.total-head;
+  for(const hz of (h.hazards||[])){
+    if(hz.lateral||hz.nearYds==null) continue;
+    const nearAy=hz.nearYds+h.offset, farAy=hz.farYds+h.offset;
+    if(farAy>=reachLong-AY.shortMiss && nearAy<=reachLong+5)
+      lines.push(`${hz.side} ${hz.type} (carry <b>${Math.round(farAy)}</b>) sits near your finish — favor ${opp(hz.side)}.`);
+  }
+  return {club:chosen.k, tag:null, aim:bias, lines};
+}
+
+function approachPlan(h,W,teeClub){
+  const w=windComp(h.bearing,W.windFrom,W.mph), play=h.back+h.offset, fat=opp(h.shortSide);
+  const uphill=h.fw&&h.fw.uphill?h.fw.uphill:0;
+  if(h.par===3){const pl=playsLike(play,w.head)+uphill;
+    return [`${play}y in — plays <b>${pl}</b>${uphill?` (+${uphill} uphill)`:''} with today's wind → <b>${pickIron(pl)}</b>.`,
+      `Center of green, miss to the <b>${fat}</b> (fat) side — never short-side ${h.shortSide}.`];}
+  const tc=byK(teeClub)||byK("driver");
+  const drive=(tc?tc.total:298)-Math.max(0,w.head);
+  const left=Math.round(Math.max(40, play-drive));
+  if(h.par===5){
+    if(h.layupTo){const pl=playsLike(h.layupTo,w.head)+uphill;
+      return [`Strict layup to a <b>${h.layupTo}y</b> number, leaving ~${pl} → <b>${pickIron(pl)}</b>.`,
+        `Wedge to center, miss <b>${fat}</b> — never short-side ${h.shortSide}.`];}
+    if(left<=265) return [`After ${tc?tc.k:'the drive'} ~<b>${left}y</b> left → <b>reachable</b>: fairway wood to the ${fat} side, or lay to a full wedge.`,
+      `If going: favor the fat side, never short-side ${h.shortSide}.`];
+    return [`After ${tc?tc.k:'the drive'} ~<b>${left}y</b> left → <b>3-shotter</b>: advance, then a full wedge.`,
+      `Wedge to center, miss <b>${fat}</b> — never short-side ${h.shortSide}.`];}
+  const pl=playsLike(left,w.head)+uphill;
+  return [`~<b>${left}y</b> in${uphill?` (+${uphill} uphill)`:''} — plays <b>${pl}</b> → <b>${pickIron(pl)}</b>.`,
+    `Center of green, miss to the <b>${fat}</b> (fat) side — never short-side ${h.shortSide}.`];
+}
+
+/* ====================== RENDER ====================== */
+let WX = {windFrom:90, mph:16};
+function relColor(rel){return rel==='birdie'||rel==='eagle'?'var(--green)':rel==='par'?'var(--mut)':rel==='bogey'?'#ff9f43':'var(--survive)';}
+function histChips(h){ if(!h.hist) return '';
+  const one=(lbl,d)=>`<span class="chip" style="color:${relColor(d[0])}"><b style="color:inherit">${lbl}</b> ${d[0]} (${d[1]})</span>`;
+  return `<div class="hist-chips">${one('Sand',h.hist.s)} ${one('Classic',h.hist.p)}</div>`; }
+function pinColor(par,prio){ if(prio==='Survive')return 'var(--survive)'; if(prio==='Attack')return 'var(--gold)'; return par===3?'var(--purple)':'var(--blue)'; }
+
+function clubDropdown(h){
+  const cur = h.userClub || (h.par===3&&!h.teeOverride?'(engine: tee shot)':(h.teeOverride||'(engine pick)'));
+  let opts = `<option value="">${h.teeOverride?('Default: '+h.teeOverride):(h.par===3?'Default: tee shot':'Engine pick')}</option>`;
+  for(const c of CLUB_OPTS) opts+=`<option value="${c}"${h.userClub===c?' selected':''}>${c}</option>`;
+  return `<label for="club${h.n}">Tee club</label>
+    <select id="club${h.n}" onchange="setClub(${h.n},this.value)" style="padding:7px 8px;font-size:13px">${opts}</select>`;
+}
+
+function holeCard(h){
+  const play=h.back+h.offset;
+  const we=windComp(h.bearing,WX.windFrom,WX.mph);
+  const headTag = we.head>=4?'into the wind':we.head<=-4?'downwind':'crosswind';
+  const dirName=dirArrow(h.bearing);
+  const tee=teePlan(h,WX), app=approachPlan(h,WX,tee.club);
+  const teeLbl=tee.club.charAt(0).toUpperCase()+tee.club.slice(1);
+  const cm=Math.abs(we.cross), crossTxt = cm>=5 ? ` · ${cm>=12?'strong':'light'} cross from the ${we.cross>0?'right':'left'}` : '';
+  const verify = h.fw&&h.fw.verify;
+
+  return `<div class="hole" id="hole${h.n}">
+    <div class="h-head" onclick="this.parentNode.classList.toggle('open')">
+      <div class="h-no">${h.n}</div>
+      <div class="h-meta"><div class="pr">PAR ${h.par} · <b>${play}</b> <small>yds</small></div></div>
+      <div class="h-prio p${h.prio}">${h.prio}</div>
+      <span class="caret">▾</span>
+    </div>
+    <div class="h-wind">plays <b>${dirName}</b> · today: <b>${headTag}</b>${crossTxt} · ${WX.mph}mph from ${dirArrow(WX.windFrom)}</div>
+    <div class="h-body">
+      <div class="offbar">
+        <div class="ob-fixed">Back tee <b>${h.back}</b> yds</div>
+        <div class="ob-set">
+          <label for="off${h.n}">Tee offset</label>
+          <input type="number" id="off${h.n}" value="${h.offset}" max="0" min="-120" step="1"
+                 onchange="setOffset(${h.n}, this.value)" oninput="livePlays(${h.n}, this.value)">
+          <span class="ob-plays" id="plays${h.n}">= ${play} yds</span>
+        </div>
+        <div class="ob-set" style="margin-left:0;width:100%">${clubDropdown(h)}</div>
+      </div>
+      <div class="offwarn" id="warn${h.n}">Offset should be 0 or negative (forward tee). Positive means a tee behind the back markers — double-check.</div>
+      ${histChips(h)}
+      ${h.flag?`<div class="flagbox">⚠ <b>Verify:</b> ${h.flag}</div>`:''}
+      ${verify?`<div class="flagbox">⚠ <b>Verify with Ayden:</b> ${verify}. Engine used its best read — override the tee club above if his call differs.</div>`:''}
+      <div class="play-row">
+        <div class="p-lbl"><span class="pin" style="background:${pinColor(h.par,h.prio)}"></span> Tee — ${teeLbl}${tee.tag?` · <span style="color:var(--gold)">${tee.tag}</span>`:''}</div>
+        <div class="p-txt">${tee.lines.join('<br>')}</div>
+      </div>
+      <div class="play-row">
+        <div class="p-lbl"><span class="pin" style="background:var(--teal)"></span> Approach</div>
+        <div class="p-txt">${app.join('<br>')}</div>
+      </div>
+      <div class="play-row">
+        <div class="p-lbl"><span class="pin" style="background:var(--purple)"></span> Green / Putt</div>
+        <div class="p-txt">${h.green&&h.green!=='—'?h.green+'<br>':''}${h.greenNote||''}</div>
+      </div>
+      <div class="windbox">
+        <div class="wb-h">⛳ Today's wind on this hole</div>
+        <div class="wb-t"><b>Plays ${dirName}.</b> ${we.head>=4?`Headwind ~${Math.round(we.head)}mph — club up, swing easy.`:we.head<=-4?`Downwind ~${Math.round(-we.head)}mph — expect release, land it short.`:'Minimal head/tail — stock yardage.'}${cm>=5?` Cross from the ${we.cross>0?'right':'left'} ~${Math.round(cm)}mph — start it into the wind.`:''}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  document.getElementById('courseName').textContent = COURSE.name;
+  const total=COURSE.holes.reduce((s,h)=>s+h.back+h.offset,0);
+  document.getElementById('courseSub').innerHTML =
+    `<span>Playing <b>${total.toLocaleString()}</b> yds (from your offsets)</span><span>Par <b>${COURSE.par}</b></span>
+     <span><b>${COURSE.design}</b> design</span><span>${COURSE.loc.label}</span><span>${COURSE.prevailing}</span>`;
+  document.getElementById('frontHoles').innerHTML = COURSE.holes.filter(h=>h.n<=9).map(holeCard).join('');
+  document.getElementById('backHoles').innerHTML  = COURSE.holes.filter(h=>h.n>=10).map(holeCard).join('');
+  renderReadout();
+}
+function renderReadout(){
+  document.getElementById('wxReadout').innerHTML =
+    `<span class="chip">💨 <b>${WX.mph} mph</b> from <b>${dirArrow(WX.windFrom)}</b></span>
+     <span class="chip">prevailing: <b>Easterly</b></span>
+     <span class="chip">par 3s most exposed — <b>club up</b></span>`;
+}
+
+function reopen(n){const el=document.getElementById('hole'+n);if(el){el.classList.add('open');el.scrollIntoView({block:'center',behavior:'smooth'});}}
+function livePlays(n,val){
+  const h=COURSE.holes.find(x=>x.n===n); if(!h) return;
+  const off=parseInt(val,10), warn=document.getElementById('warn'+n);
+  if(!isNaN(off)){ document.getElementById('plays'+n).textContent='= '+(h.back+off)+' yds';
+    if(warn) warn.classList.toggle('show', off>0); }
+}
+function setOffset(n,val){
+  const h=COURSE.holes.find(x=>x.n===n); if(!h) return;
+  let off=parseInt(val,10); if(isNaN(off)) off=0; h.offset=off;
+  const wasOpen=document.getElementById('hole'+n)?.classList.contains('open');
+  render(); if(wasOpen) reopen(n);
+}
+function setClub(n,val){
+  const h=COURSE.holes.find(x=>x.n===n); if(!h) return;
+  h.userClub = val||null;
+  const wasOpen=document.getElementById('hole'+n)?.classList.contains('open');
+  render(); if(wasOpen) reopen(n);
+}
+
+/* ====================== WEATHER PULL (Open-Meteo, keyless) ====================== */
+async function autoWeather(){
+  const status=document.getElementById('wxStatus'), note=document.getElementById('wxNote');
+  status.textContent='fetching…';
+  try{
+    const d=document.getElementById('wxDate').value || new Date().toISOString().slice(0,10);
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${COURSE.loc.lat}&longitude=${COURSE.loc.lng}`+
+      `&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m,temperature_2m,precipitation_probability`+
+      `&wind_speed_unit=mph&temperature_unit=fahrenheit&timezone=auto&start_date=${d}&end_date=${d}`;
+    const r=await fetch(url); if(!r.ok) throw new Error('http '+r.status);
+    const j=await r.json();
+    const hr=parseInt(document.getElementById('wxTime').value);
+    const idx=Math.min(hr, j.hourly.time.length-1);
+    const spd=Math.round(j.hourly.wind_speed_10m[idx]), dir=Math.round(j.hourly.wind_direction_10m[idx]);
+    const gust=Math.round(j.hourly.wind_gusts_10m[idx]), temp=Math.round(j.hourly.temperature_2m[idx]);
+    const rain=j.hourly.precipitation_probability[idx];
+    WX.mph=spd; WX.windFrom=dir;
+    document.getElementById('wxMph').value=spd;
+    document.getElementById('wxDir').value=String((Math.round(dir/45)%8)*45);
+    status.textContent='live ✓';
+    note.innerHTML=`Live forecast: <b>${spd} mph</b> from <b>${dirArrow(dir)}</b> (gusts ${gust}) · ${temp}°F · ${rain}% rain. Adjust if the board differs, then re-apply.`;
+    render();
+  }catch(e){
+    status.textContent='blocked';
+    note.innerHTML=`Auto-pull is blocked in this view (CORS / preview). <b>Enter wind manually</b> — read the range or board and type it in. The plan works identically.`;
+  }
+}
+
+/* ====================== WIRING ====================== */
+document.getElementById('wxApply').onclick=()=>{
+  WX.windFrom=Number(document.getElementById('wxDir').value);
+  WX.mph=Number(document.getElementById('wxMph').value)||0;
+  document.getElementById('wxStatus').textContent='manual'; render();
+};
+document.getElementById('wxAuto').onclick=autoWeather;
+document.querySelectorAll('.nav button').forEach(b=>{
+  b.onclick=()=>{ document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    ['front','back','feed'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+    document.getElementById(b.dataset.n).classList.remove('hidden'); };
+});
+document.getElementById('wxDate').value='2026-06-05';
+document.querySelectorAll('#wxRounds button').forEach(b=>{
+  b.onclick=()=>{ document.querySelectorAll('#wxRounds button').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    document.getElementById('wxDate').value=b.dataset.d; };
+});
+document.querySelector('#wxRounds button').classList.add('active');
+render();
+</script>
+</body>
+</html>
